@@ -191,30 +191,30 @@ Un conjunt de productes que constitueixen la millor prova del teu progrés i del
 
 [TASCA01](T01)
 
-[TASCA02]](url)
+[TASCA02](T02)
 
-[TASCA03]](url)
+[TASCA03](T03)
 
-[TASCA04]](url)
+[TASCA04](T04)
 
-[TASCA05]](url)
+[TASCA05](T05)
 
-[TASCA06]](url)
+[TASCA06](T06)
 
-[TASCA07]](url)
+[TASCA07](T07)
 
-[TASCA08]](url)
+[TASCA08](T08)
 
-[TASCA09]](url)
+[TASCA09](T09)
 
-[TASCA10]](url)
+[TASCA10](T10)
 
-[TASCA11]](url)
+[TASCA11](T11)
 
-[TASCA12]](url)
+[TASCA12](T12)
 
-[TASCA13]](url)
+[TASCA13](T13)
 
-[TASCA14]](url)
+[TASCA14](T14)
 
-[TASCA15]](url)
+[TASCA15](T15)

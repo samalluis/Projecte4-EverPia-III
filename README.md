@@ -184,3 +184,37 @@ El *Team Leader* revisa i aprova les contribucions de l'equip.
 - Tauler Kanban complet i actualitzat
 
 Un conjunt de productes que constitueixen la millor prova del teu progrés i del teu futur potencial en el món IT. Ara ja ho saps: estàs a punt de sortir d'EverPia. I vols fer-ho per la porta gran.
+
+---
+
+## Tasques 
+
+[TASCA01](T01)
+
+[TASCA02]](url)
+
+[TASCA03]](url)
+
+[TASCA04]](url)
+
+[TASCA05]](url)
+
+[TASCA06]](url)
+
+[TASCA07]](url)
+
+[TASCA08]](url)
+
+[TASCA09]](url)
+
+[TASCA10]](url)
+
+[TASCA11]](url)
+
+[TASCA12]](url)
+
+[TASCA13]](url)
+
+[TASCA14]](url)
+
+[TASCA15]](url)

@@ -53,21 +53,22 @@ Treballant per parelles:
 ### 1.1 Servidor
 
 #### **Datos críticos:**
-- …
-- …
+- Base de dades
+- Documents de Projectes
+- carpeta de documents
 
 #### **Datos no críticos:**
-- …
-- …
+- Carpetes Personals dels Usuaris
+  
 
 #### **Frecuencia de copia del servidor**
 
 **Datos críticos:**
-- Frecuencia: …
-- Tipo de copia: …
+- Frecuencia: per la base de dades i la carpeta de documents sera amb una frecuencia de diariament, mentre que els documents de projectes es fara amb una frecuecia setmanalment
+- Tipo de copia: per la base de dades el tipus sera de diferencial, per la carpeta de documents sera incremental, i per els documents de projectes el tipus sera de manera total
 
 **Datos no críticos:**
-- Frecuencia: …
+- Frecuencia: amb una frequencia 
 - Tipo de copia: …
 
 ---

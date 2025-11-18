@@ -38,8 +38,8 @@ Treballant per parelles:
 
 | **Element**               | **Proposta de la Parella** | **Justificació** |
 |---------------------------|-----------------------------|-------------------|
-| **Dades Crítiques**       |                             |                   |
-| **Periodicitat (BD)**     |                             |                   |
-| **Tipus de Còpia (BD)**   |                             |                   |
-| **Mitjà 1 (Local)**       |                             |                   |
-| **Mitjà 2 (Extern)**      |                             |                   |
+| **Dades Crítiques**       | Base de dades               | La base de dades es la mes important ja que es la que compte dades personal de clients la quals que si perden ho perden tot. |
+| **Periodicitat (BD)**     | Setmanalment                | Diariament porque si la hacemos mensualmente seria una perdida de informacion muy importante si es que se llega a perder aunque tenga la copia i semanalmente tampoco por basiamente lo mismo, ademas hacerla diariamente nos ahorramos problemas y tampoco es que pese mucho.                  |
+| **Tipus de Còpia (BD)**   |      Diferencial                       |  Porque al contener informacion tan importante, tener la copia de que se ha echo cada dia es bastante seguro, ya que es muy normal que algun usuario te pida la copia exacta de un dia enconcreto        |
+| **Mitjà 1 (Local)**       |            RDX                 |   Porque al ser la que estara dentro de la empresa i la que se usara la primera, interesa que sea rapida, ademas que estara protegit de terceras personas que pasan per la empresa                |
+| **Mitjà 2 (Extern)**      |             Cloud                |   perque si es perd o hi ha algun desastre en la empresa tenim la seguretat que tindrem una copia de seguretat en el cloud la qual sabem que no s'haura perdun en el desastre de l'empresa                |

@@ -68,15 +68,15 @@ Treballant per parelles:
 - Tipo de copia: per la base de dades el tipus sera de diferencial, per la carpeta de documents sera incremental, i per els documents de projectes el tipus sera de manera total
 
 **Datos no críticos:**
-- Frecuencia: amb una frequencia 
-- Tipo de copia: …
+- Frecuencia: amb una frequencia mensual
+- Tipo de copia: total 
 
 ---
 
 ### 1.2 Equipos Clientes
 
 #### **Datos críticos (Documentos, trabajos, etc.):**
-- Frecuencia: …
+- Frecuencia: los documentos 
 - Tipo de copia: …
 
 #### **Datos no críticos:**

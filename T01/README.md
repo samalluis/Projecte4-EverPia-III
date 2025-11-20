@@ -135,3 +135,6 @@ Com s’assegura que:
 - Xataka — Backup 3-2-1 (YouTube, 2017)  
   https://youtu.be/PM_M4Iz6I4o?si=F7DRyDDTZE3hjWn8
 
+---
+
+Veure [Solucio Activitat](Solucio.md)

@@ -1,126 +1,137 @@
-# Fase 1: Treball individual
+# Fase 1: Treball individual  
 De forma individual, heu de donar resposta a les següents preguntes basant-se en el cas pràctic:
 
-### 1.  Què copiar? (Priorització): Quines són les dades més crítiques del servidor? Cal fer còpia dels 10 equips clients? Justifica-ho.
+### 1. Què copiar? (Priorització)  
+Quines són les dades més crítiques del servidor? Cal fer còpia dels 10 equips clients? Justifica-ho.
 
-Primer de tot jo prioritzaria fer copias del **servidor de fitxers**, ja que es la part mes important, on es guarden documents de projectes, bases de dades i carpetes personals dels usuaris, es la base de tot, si perden el servidor perden tot, i sobre els equips jo no faria cap copia de seguretat, ja que no contenen informacio del tot important, l'unic que poden tenir de important es la carpeta de documents, pero aquesta ja esta guardada en el server **(carpetes personal d'usuaris)**.
-   
-### 2.  Periodicitat i Tipus de Còpia: Proposa un calendari bàsic per a la setmana (Diari/Setmanal/Mensual) i quin tipus de còpia aplicaràs (Completa, Diferencial, Incremental) per a les dades crítiques.
+Primer de tot, jo prioritzaria fer còpies del **servidor de fitxers**, ja que és la part més important: s’hi guarden els documents de projectes, les bases de dades i les carpetes personals dels usuaris. És la base de tot; si es perd el servidor, es perd tota la informació.  
+Pel que fa als equips clients, **no faria cap còpia de seguretat**, ja que no contenen informació especialment rellevant. L’únic element important podria ser la carpeta de documents, però aquesta ja està guardada al servidor (**carpetes personals d’usuaris**).
 
-- Primer de tot jo faria una copia mensual del servidor de manera completa, ja que es important anan fent copies totals per aixi en el moment de voler fer copias diferencials e icrementals, no s'aixi de tornar molt enrera.
+---
 
-- Ara, de manera mes especifica, com els **Documents de Projectes**, al ser una part molt important pero amb un pes bastant elevat farem una copa setmanalment, ja que si la fem diariament perdriam molt de temps, i si fos de manera mensual si es perd encara que el podriam recuperar es perdria bastanta informació important, i utilitzarem un format de copia incremental.
+### 2. Periodicitat i Tipus de Còpia  
+Proposa un calendari bàsic per a la setmana (Diari/Setmanal/Mensual) i quin tipus de còpia aplicaràs (Completa, Diferencial, Incremental).
 
-- Per la base de dades, al ser nomes poc mes de 20 GB i per mi ser la informacio mes important al tenir informacio credencial de clients i com be diu el nom es la base, farem una copia diariament de manera diferencial.
+- Faria una còpia **mensual completa del servidor**, ja que és important disposar d'una base completa per poder treballar després amb còpies diferencials o incrementals sense haver de retrocedir massa.
+  
+- En el cas dels **Documents de Projectes**, com que són molt importants però pesen força, faria una còpia **setmanal** en format **complet**. Fer-la diàriament seria massa lent i fer-la mensual faria que es pogués perdre informació rellevant.
 
-- I per les carpetes personals d'usuaris, conte informació important de la feina, pero nomes hens interesa fer copia de la carpeta de documents del usuaris, la qual van modificant i guardan informacio important cada dia, tot l'ho altre no es important, ja que son imatges o aplicacions, per aixo, farem una copia diariament de manera diferencial.
+- Per a la **base de dades**, que pesa uns 20 GB i conté informació sensible de clients, faria una còpia **diària** de tipus **diferencial**.
 
-   
-### 3.  Mitjans i Ubicació: Quin tipus de mitjà de còpia utilitzaries (Discs durs externs, NAS, Cloud, Cintes)? On s'hauria de guardar físicament la còpia més recent (Regla 3-2-1).
+- Per a les **carpetes personals d’usuaris**, només interessa copiar la carpeta de documents, que s’actualitza diàriament amb informació de feina. La resta (imatges, aplicacions...) no és important. Per això, faria una còpia **diària** de tipus **incremental**.
 
-Per fer les còpies de seguretat utilitzaria diferents sistemes, ja que és important seguir la regla 3-2-1, que vol dir tenir 3 còpies de les dades, en 2 tipus de suports diferents i 1 d’aquestes còpies guardada fora de l’empresa.
+---
 
-- Primer utilitzaria un NAS dins de l’empresa, perquè permet fer còpies automàtiques i és molt ràpid a l’hora de recuperar informació si es perd alguna dada. Aquest seria el sistema principal on es guardarien les còpies més recents, com les diàries i les setmanals.
+### 3. Mitjans i Ubicació (Regla 3-2-1)
 
-- Després també utilitzaria algun servei de núvol (Cloud) per tenir una còpia fora de l’empresa. Això és útil per si passa alguna cosa greu a les instal·lacions, com un incendi o un robatori, així sempre quedaria una còpia segura a un altre lloc.
+Per fer les còpies de seguretat utilitzaria diferents sistemes seguint la regla 3-2-1:  
+**3 còpies**, **2 tipus de suport**, **1 fora de l’empresa**.
 
-- Finalment, també faria servir discos durs externs o cintes per tenir còpies addicionals. Les cintes són més professionals i duren molt, però si el pressupost és limitat un disc dur extern ja va bé per tenir còpies setmanals o mensuals que no es consulten sovint.
+- **NAS a l’empresa**: per a les còpies automàtiques més recents (diàries i setmanals). Recuperació molt ràpida.
+- **Còpia al núvol (Cloud)**: per tenir una còpia fora de l’empresa en cas d’incendi, robatori o desastre.
+- **Discos durs externs o cintes**: per còpies addicionals mensuals.
 
-Seguint la regla 3-2-1, la còpia més recent s’hauria de guardar al NAS, ja que és la que es pot necessitar recuperar més ràpidament. Una altra còpia es guardaria en un altre suport (disc dur o cinta) dins de l’empresa, i la tercera còpia s’hauria de guardar fora de l’empresa, al núvol, per assegurar que les dades estiguin protegides passi el que passi.
+La còpia més recent s’ha de guardar al **NAS**, una segona còpia al **disc extern/cinta** dins l’empresa i la tercera al **núvol**.
+
+---
 
 # Fase 2: Treball per parelles  
 ## Esquema 3-2-1 de Còpies (Proposta Unificada)
 
-| **Element**          | **Proposta de la Parella** | **Justificació** |
-|----------------------|-----------------------------|-------------------|
-| **Dades Crítiques**  | Base de dades               | La base de dades és la més important, ja que conté dades personals i informació clau de clients. |
-| **Periodicitat (BD)** | Diàriament                 | Una còpia mensual podria provocar pèrdues greus. Fer-la diàriament garanteix seguretat i no ocupa massa espai. |
-| **Tipus de Còpia (BD)** | Diferencial              | Permet restaurar exactament l’estat d’un dia concret i és més ràpid que una còpia completa diària. |
-| **Mitjà 1 (Local)** | RDX                          | Perquè és ràpid, segur i fàcil de substituir. A més, queda protegit físicament dins de l’empresa. |
-| **Mitjà 2 (Extern)** | Cloud                       | Si hi ha un desastre físic a l’empresa, sempre queda una còpia segura fora de les instal·lacions. |
+| **Element**            | **Proposta de la Parella** | **Justificació** |
+|------------------------|-----------------------------|-------------------|
+| **Dades Crítiques**    | Base de dades               | És la més important perquè conté dades personals i informació clau dels clients. |
+| **Periodicitat (BD)**  | Diàriament                  | Una còpia mensual podria causar grans pèrdues; la còpia diària és segura i lleugera. |
+| **Tipus de Còpia (BD)**| Diferencial                 | Permet restaurar l’estat exacte d’un dia i és més eficient que una completa diària. |
+| **Mitjà 1 (Local)**    | RDX                         | Ràpid, segur, fàcil de substituir i protegit físicament. |
+| **Mitjà 2 (Extern)**   | Cloud                       | Permet tenir una còpia fora de l’empresa en cas de desastre. |
 
 ---
 
 # Fase 3: Treball en grup
 
-## 1) Datos Objeto de Copia
+## 1) Dades Objecte de Còpia
 
 ### 1.1 Servidor
 
-#### **Datos críticos**
+#### **Dades crítiques**
 - Base de dades  
 - Documents de projectes  
 - Carpeta de documents dels usuaris  
 
-#### **Datos no críticos**
-- Altres carpetes personals d’usuaris (imatges, descàrregues, aplicacions…)
+#### **Dades no crítiques**
+- Altres carpetes personals (imatges, descàrregues, aplicacions...)
 
 ---
 
-### **Frecuencia de copia del servidor**
+### **Freqüència de còpia del servidor**
+
+#### **Servidor complet**
+- **Freqüència:** Mensual  
+- **Tipus:** Completa  
 
 #### **Dades crítiques**
 
 **Base de dades**  
-- Frecuencia: Diària  
-- Tipo: Diferencial  
+- Freqüència: Diària  
+- Tipus: Diferencial  
 
 **Carpeta de documents dels usuaris**  
-- Frecuencia: Diària  
-- Tipo: Incremental  
+- Freqüència: Diària  
+- Tipus: Incremental  
 
 **Documents de projectes**  
-- Frecuencia: Setmanal  
-- Tipo: Completa  
+- Freqüència: Setmanal  
+- Tipus: Completa  
 
 #### **Dades no crítiques**
-- Frecuencia: Mensual  
-- Tipo: Completa  
+- Freqüència: Mensual  
+- Tipus: Completa  
 
 ---
 
-### 1.2 Equipos Clientes
+### 1.2 Equips Clients
 
-#### **Datos críticos (documents, treballs, etc.)**
-- Frecuencia: Setmanal  
-- Tipo de copia: Incremental (només Documents)
+#### **Dades crítiques (documents, treballs...)**
+- Freqüència: Setmanal  
+- Tipus: Incremental (només Documents)
 
-#### **Datos no críticos**
-- Frecuencia: Mensual  
-- Tipo de copia: Completa (si es fa)
-
----
-
-## 2) Cronograma Semanal Detallado
-
-| **Día**     | **Datos**                                  | **Tipo de copia**                      | **Medio**           |
-|-------------|---------------------------------------------|-----------------------------------------|----------------------|
-| **Lunes**    | Base de dades + Carpeta documents          | Diferencial / Incremental               | NAS (RDX)           |
-| **Martes**   | Base de dades + Carpeta documents          | Diferencial / Incremental               | NAS                 |
-| **Miércoles**| Base de dades + Carpeta documents          | Diferencial / Incremental               | NAS                 |
-| **Jueves**   | Base de dades + Carpeta documents          | Diferencial / Incremental               | NAS                 |
-| **Viernes**  | BD + Carpeta documents + Projectes         | Diferencial / Incremental / Completa    | NAS                 |
-| **Sábado**   | Replicació al Cloud                        | —                                       | Cloud               |
-| **Domingo**  | Còpia mensual (dades no crítiques)         | Completa                                 | Disc extern / cinta |
+#### **Dades no crítiques**
+- Freqüència: Mensual  
+- Tipus: Completa (si es fa)
 
 ---
 
-## 3) Elección de Medios y Ubicación (Regla 3-2-1)
+## 2) Cronograma Setmanal Detallat
 
-### 3.1 Medio 1 (Local)
-- **Tipo:** RDX / NAS  
-- **Ubicación:** Sala de servidors, dins del rack  
+| **Dia**        | **Dades**                                   | **Tipus de còpia**                        | **Mitjà**           |
+|----------------|----------------------------------------------|--------------------------------------------|----------------------|
+| **Dilluns**     | Base de dades + Carpeta de documents         | Diferencial / Incremental                  | NAS (RDX)            |
+| **Dimarts**     | Base de dades + Carpeta de documents         | Diferencial / Incremental                  | NAS                  |
+| **Dimecres**    | Base de dades + Carpeta de documents         | Diferencial / Incremental                  | NAS                  |
+| **Dijous**      | Base de dades + Carpeta de documents         | Diferencial / Incremental                  | NAS                  |
+| **Divendres**   | BD + Carpeta docs + Projectes                | Diferencial / Incremental / Completa       | NAS                  |
+| **Dissabte**    | Replicació al Cloud                          | —                                          | Cloud                |
+| **Diumenge**    | Còpia mensual (dades no crítiques)           | Completa                                   | Disc extern / cinta  |
+
+---
+
+## 3) Elecció de Mitjans i Ubicació (Regla 3-2-1)
+
+### 3.1 Mitjà 1 (Local)
+- **Tipus:** RDX / NAS  
+- **Ubicació:** Sala de servidors (rack)  
 - **Responsable:** Tècnic de sistemes / Administrador de xarxes  
 
-### 3.2 Medio 2 (Externo)
-- **Tipo:** Cloud  
-- **Proveedor:** Google Cloud, Azure o AWS  
-- **Frecuencia:** Diàriament (rèplica automàtica nocturna)  
+### 3.2 Mitjà 2 (Extern)
+- **Tipus:** Cloud  
+- **Proveïdor:** Google Cloud, Azure o AWS  
+- **Freqüència d’actualització:** Diària (rèplica automàtica nocturna)  
 - **Responsable:** Responsable IT  
 
-### 3.3 Ubicación Fuera de Lugar
-- **Ubicación:** Núvol (zona geogràfica diferent a l’empresa)  
-- **Tipo de datos:** Dades crítiques (BD, documents, projectes)  
+### 3.3 Ubicació Fora de l’Empresa
+- **Ubicació:** Núvol (regió diferent)  
+- **Dades emmagatzemades:** Dades crítiques (BD, documents, projectes)  
 - **Seguretat:**  
   - Accés xifrat  
   - Autenticació multifactor  
@@ -129,21 +140,21 @@ Seguint la regla 3-2-1, la còpia més recent s’hauria de guardar al NAS, ja q
 
 ---
 
-## 4) Estrategia de Recuperación (RTO / RPO)
+## 4) Estratègia de Recuperació (RTO / RPO)
 
 ### **Objectius**
 - **RPO:** 4 hores  
 - **RTO:** 4 hores  
 
-### **Com es garanteix el compliment**
+### **Com es garanteix**
 - **Tipus de còpia:** Diferencial i incremental  
-- **Còpies ràpides guardades a:** NAS / RDX local  
+- **Còpies ràpides guardades a:** NAS / RDX  
 
 ### **Procediment de recuperació**
-1. Identificar el punt de restauració més recent segons el RPO.  
+1. Identificar el punt de restauració més recent (segons RPO).  
 2. Carregar la còpia diferencial o incremental des del NAS.  
 3. Verificar la integritat de la restauració.  
-4. Restaurar serveis segons prioritat (BD → projectes → documents).  
+4. Restaurar serveis per prioritat (BD → projectes → documents).  
 5. Validació final amb l’equip tècnic.  
 
 ### **Personal responsable**
@@ -153,8 +164,5 @@ Seguint la regla 3-2-1, la còpia més recent s’hauria de guardar al NAS, ja q
 
 ---
 
-## **Firma del grup**
-- **Alumne 1:** …  
-- **Alumne 2:** …  
-- **Alumne 3:** …  
-- **Alumne 4:** …  
+**Click aquí per anar al [README de l’Activitat](README.md)**  
+**Click aquí per tornar a la [HOME](..)**  

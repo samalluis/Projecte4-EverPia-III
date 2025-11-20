@@ -3,7 +3,7 @@ De forma individual, heu de donar resposta a les següents preguntes basant-se e
 
 ### 1.  Què copiar? (Priorització): Quines són les dades més crítiques del servidor? Cal fer còpia dels 10 equips clients? Justifica-ho.
 
-Primer de tot jo prioritzaria fer copias del **servidor de fitxers**, ja que es la part mes important, on es guarden documents de projectes, bases de dades i carpetes personals dels usuaris, es la base de tot, si perden el servidor perden tot, i sobre els equips no faria una copia de tot el equip, pero si faria copies de la carpeta de documents, ja que molts tecnics guardan informacio important alla.
+Primer de tot jo prioritzaria fer copias del **servidor de fitxers**, ja que es la part mes important, on es guarden documents de projectes, bases de dades i carpetes personals dels usuaris, es la base de tot, si perden el servidor perden tot, i sobre els equips jo no faria cap copia de seguretat, ja que no contenen informacio del tot important, l'unic que poden tenir de important es la carpeta de documents, pero aquesta ja esta guardada en el server (carpetes personal d'usuaris).
    
 ### 2.  Periodicitat i Tipus de Còpia: Proposa un calendari bàsic per a la setmana (Diari/Setmanal/Mensual) i quin tipus de còpia aplicaràs (Completa, Diferencial, Incremental) per a les dades crítiques.
 

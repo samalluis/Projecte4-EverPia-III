@@ -1,85 +1,60 @@
-# T02: DPR: Còpies de Seguretat — Cas Pràctic
+# T03: Pla de recuperació davant desastres: imatges del sistema
 
 ## Breu descripció
 
 ### Introducció al cas
-A la tasca anterior heu dissenyat una política de còpies de seguretat pel nostre nou client **"Muntatges i Serveis Tècnics SL"**. Ara toca passar a l’acció i portar a la pràctica l’estudi anterior.  
-El client demana que s’elaborin unes guies tècniques amb proves de concepte per tal que el seu personal estigui qualificat per implantar el pla de còpies de seguretat.
+Recordeu el cas del portàtil al qual no es podia accedir? En aquella situació, la vostra perícia tant a l’hora de recuperar l’accés com en la posterior fortificació del sistema va deixar impressionat al client. Per aquest motiu, ha requerit que participeu en el seu nou encàrrec.
+
+Ha encarregat l’elaboració d’un **Pla de Contingència i Continuïtat del Negoci**. Dins d’aquest pla, s’ha de posar en marxa el **Pla de Recuperació davant Desastres (DRP – Disaster Recovery Plan)**.
+
+Aquest pla inclou tots els processos de restauració de dades, hardware i software crític de l’organització davant d’un esdeveniment catastròfic, amb l’objectiu de recuperar l’activitat normal el més ràpid possible.
+
+Un dels aspectes contemplats és assegurar que els treballadors puguin disposar dels seus equips de forma ràpida en cas de robatori, avaria o altres incidents. Per aquest motiu, se’ns demana la creació **d’imatges de restauració del sistema**.  
+El temps de posada en marxa és crític i **no és viable** la solució clàssica d’instal·lar el sistema operatiu i configurar-lo manualment.
+
+Cal tenir en compte que tots els equips del client utilitzen **Zorin OS 18**, amb una sèrie d’aplicacions prèviament configurades.
 
 ---
 
-# Part 1: Còpia de seguretat dels equips clients Windows
+## Fase 1: Anàlisi i justificació de la solució tècnica
 
-Encara que en principi el DPR no contemplaria fer còpia dels arxius locals dels equips clients, se’ns demana fer una excepció amb l’equip Windows del director de l’empresa. En aquest equip es guarda informació important que **no es vol tenir accessible al servidor de fitxers de l’empresa**.
+En aquesta primera fase, cal investigar eines que permetin crear una **imatge completa del disc** d’un equip i restaurar-la posteriorment mantenint totes les configuracions i aplicacions.
 
-Per aquest motiu és necessari definir una política de còpies de seguretat seguint l’esquema **3-2-1**:
+Cal elaborar una **comparativa de quatre productes**:
+- **2 comercials**
+- **2 de comunitat**
 
-- Una còpia al disc secundari del propi equip.  
-- Una segona còpia al **cloud (Google Drive)** utilitzant **Duplicati**.
+La comparativa ha d’incloure:
+- Característiques destacades  
+- Preu  
+- Avantatges i inconvenients  
+- Una conclusió comparativa (no còpia de webs)
 
-## Entorn de prova
-
-Com a prova de concepte:
-
-- Crear una màquina virtual **Windows 11** amb **dos discs**:  
-  - Disc principal amb el sistema operatiu  
-  - Disc secundari de **10 GB** per a còpies  
-- Per simular Google Drive, fer servir un **compte extern** (no el de l’escola).
-
-## Requisits de còpia
-
-- Còpia **cada hora** del perfil d’usuari al disc secundari.  
-- Còpia **a les 18:00** a Google Drive.
-
-## Tasques a documentar
-
-1. Procediment d’instal·lació de **Duplicati**.  
-2. Configuració dels plans de còpies.  
-3. Afegir arxius a les carpetes de l’usuari (especialment *Documents*) per observar el funcionament.  
-4. Esborrar el contingut de *Documents* i restaurar des del disc secundari.  
-5. Comprovar la restauració des de la còpia emmagatzemada al cloud.
+Finalment, cal proposar una solució justificada en base a la comparativa realizada.
 
 ---
 
-# Part 2: Còpia de seguretat servidor Linux
+## Fase 2: Guia d’ús tècnica (Manual Operatiu)
 
-Per fer les còpies del servidor Linux, la solució proposada és **Duplicity**, que permet fer còpies tant a un mitjà local com remot.  
-Amb **cron**, es poden implementar polítiques de còpia de manera automatitzada.
+A partir de la màquina proporcionada pel client (simulada amb una OVA), cal realitzar:
 
-Has de crear una guia tècnica que expliqui com utilitzar aquesta eina per fer còpies d’un servidor Linux.
+1. **Crear una imatge completa del sistema.**
+2. **Restaurar aquesta imatge** en un sistema net (màquina virtual idèntica, però sense SO preinstal·lat).
 
-## Entorn de prova
+La guia ha de:
+- Estar documentada pas a pas  
+- Incloure captures de pantalla significatives  
+- Estar pensada perquè el personal de manteniment la pugui seguir sense dificultats
 
-- Màquina virtual amb **Ubuntu Server**.  
-- Afegir un segon disc de **10 GB** que simularà una unitat auxiliar.
+Com que és una prova de concepte i encara no se sap si el client acceptarà la solució final, aquesta guia es farà amb **Rescuezilla**.
 
-## Tasques a realitzar
-
-1. Inicialitzar i formatar el disc en **XFS**.  
-   - Muntar-lo manualment a `/media/backup` (cal crear la carpeta abans).
-2. Instal·lar **Duplicity**.
-3. Crear dos usuaris nous amb carpeta personal.  
-   - Crear també **4 arxius de 10 MB** a la carpeta home del teu usuari.
-4. Fer una còpia de seguretat de la carpeta `/home`.
-5. Esborrar els arxius i fer una restauració per comprovar que es recuperen.
-6. Afegir un nou arxiu de **4 MB** i fer una nova còpia.  
-   - Observar com ara es crea una **còpia incremental**.
-7. Desmuntar la unitat de backup.
+> **Tasques individuals.**
 
 ---
 
-# Automatització amb scripts i cron
+## Materials i links de suport
 
-És important que la **unitat de backup estigui desmuntada per defecte**.  
-Els scripts han de muntar-la al principi i desmuntar-la al final.
+- **INCIBE. _¿Ya tienes tu Plan de Recuperación ante Desastres?_** (Agost 2019)  
+  Disponible a: https://www.incibe.es/empresas/blog/tienes-tu-plan-recuperacion-desastres
 
-## 7. Script `fullbackup.sh`
-
-- Fa una còpia **completa** de `/home`.  
-- Desa el backup al volum muntat.  
-- Fa servir la variable d’entorn **PASSPHRASE** per no haver d’escriure la contrasenya:
-
-```bash
-export PASSPHRASE=contrasenya
-
-
+- **Pàgina oficial de Rescuezilla**

@@ -183,15 +183,19 @@ Ara crearem els scripts que munten el disc, fan la còpia i el desmunten.
 
 Nota: Crea una carpeta per guardar els scripts, per exemple /root/scripts o a la teva home. Aquí assumiré /usr/local/bin per seguir bones pràctiques o la carpeta de l'usuari root. Fem-ho com a root.
 
-- Canvia a root: sudo -i
+Canvia a root: 
+````
+sudo su
+````
 
-A. Script Full Backup (fullbackup.sh)
-Crea l'arxiu: nano /root/fullbackup.sh
+#### Script Full Backup (fullbackup.sh)
 
-Bash
+- Crea l'arxiu:
+````
+nano /root/fullbackup.sh
+````
 
-#!/bin/bash
-
+````Bash
 # Variables
 EXPORT PASSPHRASE="muntatges"
 SOURCE="/home"
@@ -218,18 +222,21 @@ if mountpoint -q $MOUNTPOINT; then
 else
     echo "Error: No s'ha pogut muntar la unitat."
 fi
-Dona permisos d'execució:
+````
 
-Bash
+- Dona permisos d'execució:
+
+````Bash
 
 chmod +x /root/fullbackup.sh
 B. Script Incremental Backup (incrementalbackup.sh)
-Crea l'arxiu: nano /root/incrementalbackup.sh
+````
 
-Bash
-
-#!/bin/bash
-
+- Crea l'arxiu: 
+````
+nano /root/incrementalbackup.sh
+````
+````
 # Variables
 EXPORT PASSPHRASE="muntatges"
 SOURCE="/home"
@@ -257,36 +264,46 @@ if mountpoint -q $MOUNTPOINT; then
 else
     echo "Error: No s'ha pogut muntar la unitat."
 fi
-Dona permisos d'execució:
+````
+- Dona permisos d'execució:
 
-Bash
+````Bash
 
 chmod +x /root/incrementalbackup.sh
-5. Programació amb Cron
-Edita el crontab de l'usuari root:
+````
 
-Bash
+### 5. Programació amb Cron
+
+- Edita el crontab de l'usuari root:
+
+````Bash
 
 crontab -e
-Afegeix les línies següents al final del fitxer:
+````
+- Afegeix les línies següents al final del fitxer:
 
-Bash
+````Bash
 
 # Còpia COMPLETA: Diumenges (0) a les 23:00
 0 23 * * 0 /root/fullbackup.sh >> /var/log/backup_full.log 2>&1
 
 # Còpia INCREMENTAL: De Dilluns (1) a Dissabte (6) a les 23:00
 0 23 * * 1-6 /root/incrementalbackup.sh >> /var/log/backup_inc.log 2>&1
+````
+
 (Nota: La part >> /var/log... és opcional però recomanable per veure si ha funcionat, ja que cron no té sortida per pantalla).
 
-Guarda i surt.
+- Guarda i surt.
 
-6. Verificació Final
+### 6. Verificació Final
+
 Per comprovar que els scripts funcionen sense esperar a les 23:00, pots executar-los manualment una vegada:
 
-Bash
+````Bash
 
 /root/incrementalbackup.sh
+````
+
 Si no dona error i en acabar fas un lsblk i veus que el disc sdb no té cap punt de muntatge (MOUNTPOINTS està buit), el sistema funciona tal com s'ha demanat (munta, copia, desmunta).
 
 

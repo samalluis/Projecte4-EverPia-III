@@ -143,7 +143,7 @@ dd if=/dev/zero of=~/arxiu4.img bs=1M count=10
 duplicity full /home file:///media/backup
 ````
 
-Et demanarà una Passphrase. Posa una senzilla i recorda-la (ex: "muntatges").
+Et demanarà una Passphrase. Posa una senzilla i recorda-la (ex: "usuari").
 
 - Prova de desastre i Restore:
 

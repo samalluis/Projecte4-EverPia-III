@@ -159,7 +159,7 @@ duplicity restore file:///media/backup /home
 Et demanarà la Passphrase. Comprova que els arxius han tornat.
 
 - Còpia Incremental:
-- 
+  
 ````Bash
 # Crea un arxiu nou de 4MB
 dd if=/dev/zero of=~/arxiu_nou.img bs=1M count=4
@@ -229,8 +229,9 @@ fi
 ````Bash
 
 chmod +x /root/fullbackup.sh
-B. Script Incremental Backup (incrementalbackup.sh)
 ````
+
+#### Script Incremental Backup (incrementalbackup.sh)
 
 - Crea l'arxiu: 
 ````
@@ -277,13 +278,12 @@ chmod +x /root/incrementalbackup.sh
 - Edita el crontab de l'usuari root:
 
 ````Bash
-
 crontab -e
 ````
+
 - Afegeix les línies següents al final del fitxer:
 
 ````Bash
-
 # Còpia COMPLETA: Diumenges (0) a les 23:00
 0 23 * * 0 /root/fullbackup.sh >> /var/log/backup_full.log 2>&1
 
@@ -300,7 +300,6 @@ crontab -e
 Per comprovar que els scripts funcionen sense esperar a les 23:00, pots executar-los manualment una vegada:
 
 ````Bash
-
 /root/incrementalbackup.sh
 ````
 

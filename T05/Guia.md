@@ -24,8 +24,9 @@ Per permetre connexions, assegura't que el servei està instal·lat i actiu a l'
 sudo apt update
 sudo apt install openssh-server -y
 sudo systemctl status ssh
-Evidència recomanada: Captura del servidor mostrant el servei ssh en estat "active (running)".
 ````
+
+![aaaaaaa](https://github.com/samalluis/Projecte4-EverPia-III/blob/main/T05/img/Captura%20de%20pantalla%202025-12-04%20171236.png?raw=true)
 
 2. Primera connexió i validació del certificat
    

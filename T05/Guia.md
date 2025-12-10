@@ -43,13 +43,6 @@ ssh nom_usuari@192.168.1.XX
 
 ![lkkl](https://github.com/samalluis/Projecte4-EverPia-III/blob/main/T05/img/Captura%20de%20pantalla%202025-12-04%20172039.png?raw=true)
 
-Fingerprint: Com que és la primera vegada, el client no reconeix el servidor. Et demanarà confirmar la empremta (fingerprint) ECDSA o ED25519.
-
-Escriu yes i prem Enter.
-Introdueix la contrasenya de l'usuari Linux.
-
-Evidència (Rúbrica): Captura de pantalla del PowerShell mostrant el missatge "The authenticity of host '...' can't be established... Are you sure you want to continue connecting?".
-
 3. Gestió de l'usuari Root i configuració SSHD
    
 Un cop connectats via SSH des del Windows, configurarem l'usuari root.
@@ -59,7 +52,6 @@ Un cop connectats via SSH des del Windows, configurarem l'usuari root.
 Per defecte, l'usuari root a Ubuntu no té contrasenya assignada.
 
 ````Bash
-
 sudo passwd root
 ````
 
@@ -70,7 +62,6 @@ Introdueix la nova contrasenya per a root dues vegades.
 Hem d'examinar la configuració del servei SSH per veure les polítiques d'accés.
 
 ````Bash
-
 cat /etc/ssh/sshd_config | grep PermitRootLogin
 ````
 Observarem una línia que diu #PermitRootLogin prohibit-password o similar. Això significa que, per defecte, root NO pot entrar amb contrasenya via SSH.
@@ -84,7 +75,6 @@ Tanca la sessió actual amb exit.
 Des del PowerShell de Windows, intenta connectar-te com a root:
 
 ````PowerShell
-
 ssh root@192.168.1.XX
 ````
 Introdueix la contrasenya que has definit al punt 3.1.
@@ -102,14 +92,12 @@ Utilitzarem la comanda nativa scp de Windows per enviar un fitxer al servidor.
 Al Windows, crea un fitxer de prova:
 
 ````PowerShell
-
 echo "Aquest és un arxiu secret des de Windows" > C:\Users\Public\secret.txt
 ````
 
 Envia l'arxiu a la carpeta personal de l'usuari Linux:
 
 ````PowerShell
-
 scp C:\Users\Public\secret.txt nom_usuari@192.168.1.XX:/home/nom_usuari/
 ````
 
@@ -125,7 +113,6 @@ Supòsit: El servidor té un servidor web (Apache/Nginx) al port 80. Si no en t�
 Des de Windows PowerShell, crea el túnel:
 
 ````PowerShell
-
 # Sintaxi: ssh -L port_local:localhost:port_remot usuari@ip
 ssh -L 8080:localhost:80 nom_usuari@192.168.1.XX
 ````
@@ -159,7 +146,6 @@ Per millorar la seguretat i no dependre de contrasenyes, configurarem l'accés m
 Al PowerShell:
 
 ````PowerShell
-
 ssh-keygen -t rsa -b 4096
 ````
 Prem "Enter" per acceptar la ruta per defecte (.ssh/id_rsa). Pots deixar la passphrase buida per aquest exemple.
@@ -171,12 +157,10 @@ Windows no sempre té la comanda ssh-copy-id per defecte. Ho farem manualment am
 Pujar la clau pública:
 
 ````PowerShell
-
 scp $env:USERPROFILE\.ssh\id_rsa.pub nom_usuari@192.168.1.XX:~/clau_windows.pub
 ````
 Connectar-se via SSH i instal·lar la clau:
 ````PowerShell
-
 ssh nom_usuari@192.168.1.XX
 ````
 

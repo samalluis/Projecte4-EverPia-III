@@ -55,6 +55,8 @@ Per defecte, l'usuari root a Ubuntu no té contrasenya assignada.
 sudo passwd root
 ````
 
+![ffdf](https://github.com/samalluis/Projecte4-EverPia-III/blob/main/T05/img/Captura%20de%20pantalla%202025-12-04%20172201.png?raw=true)
+
 Introdueix la nova contrasenya per a root dues vegades.
 
 3.2. Configuració sshd_config

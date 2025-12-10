@@ -28,6 +28,8 @@ sudo systemctl status ssh
 
 ![aaaaaaa](https://github.com/samalluis/Projecte4-EverPia-III/blob/main/T05/img/Captura%20de%20pantalla%202025-12-04%20171236.png?raw=true)
 
+![adasdads](https://github.com/samalluis/Projecte4-EverPia-III/blob/main/T05/img/Captura%20de%20pantalla%202025-12-04%20171332.png?raw=true)
+
 2. Primera connexió i validació del certificat
    
 Des del client Windows, obre PowerShell o Windows Terminal. Utilitzarem la comanda nativa ssh.

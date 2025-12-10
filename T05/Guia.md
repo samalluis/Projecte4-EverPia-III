@@ -40,7 +40,8 @@ Executa la comanda de connexió:
 
 ssh nom_usuari@192.168.1.XX
 ````
-(Substitueix nom_usuari pel teu usuari de Linux i la IP corresponent).
+
+![lkkl](https://github.com/samalluis/Projecte4-EverPia-III/blob/main/T05/img/Captura%20de%20pantalla%202025-12-04%20172039.png?raw=true)
 
 Fingerprint: Com que és la primera vegada, el client no reconeix el servidor. Et demanarà confirmar la empremta (fingerprint) ECDSA o ED25519.
 

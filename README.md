@@ -184,6 +184,15 @@ El *Team Leader* revisa i aprova les contribucions de l'equip.
 - Tauler Kanban complet i actualitzat
 
 Un conjunt de productes que constitueixen la millor prova del teu progrés i del teu futur potencial en el món IT. Ara ja ho saps: estàs a punt de sortir d'EverPia. I vols fer-ho per la porta gran.
+---
+
+# Enllaços repositoris
+
+[Enllaç a repositori EverPia-Onboarding](https://github.com/SMX2n/EverPia-Onboarding)
+
+[Enllaç al repositori del grup A 04](https://github.com/SMX2n/EverPia-Onboarding/tree/main/GrupoA04)
+
+[Enllaç al repositori propi](https://github.com/samalluis/EverPia-Onboarding/tree/main)
 
 ---
 

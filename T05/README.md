@@ -59,4 +59,8 @@ Recorda:
 - **Moodle 0227 Serveis de Xarxa – UD4.AA2 Pràctica SSH**
 - **Vídeo:** SSH amb clau pública/privada (link proporcionat al Moodle)
 
+---
 
+[Clicka aqui per anar a HOME](..)
+
+[Click aqui per anar a la GUIA](Guia.md)

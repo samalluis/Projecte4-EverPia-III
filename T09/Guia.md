@@ -30,9 +30,13 @@ Ambdues màquines disposen de:
 
 Durant la instal·lació d’Ubuntu Server s’ha activat el **servei SSH** per facilitar la gestió remota.
 
+![as](https://github.com/samalluis/Projecte4-EverPia-III/blob/main/T09/img/Captura%20de%20pantalla%202025-12-16%20153909.png?raw=true)
+
+![adsa](https://github.com/samalluis/Projecte4-EverPia-III/blob/main/T09/img/Captura%20de%20pantalla%202025-12-16%20154013.png?raw=true)
+
 ### 1.2 Actualització del sistema
 
-A ambdues màquines:
+A les dues màquines:
 
 ```bash
 sudo apt update && sudo apt upgrade -y
@@ -45,6 +49,14 @@ Des del client:
 ```bash
 ping <IP_SERVIDOR_NFS>
 ```
+
+Server al client:
+
+![das](https://github.com/samalluis/Projecte4-EverPia-III/blob/main/T09/img/Captura%20de%20pantalla%202025-12-16%20154751.png?raw=true)
+
+Client al server:
+
+![das](https://github.com/samalluis/Projecte4-EverPia-III/blob/main/T09/img/Captura%20de%20pantalla%202025-12-16%20154805.png?raw=true)
 
 La resposta correcta confirma la comunicació entre ambdues màquines.
 
@@ -59,6 +71,8 @@ sudo groupadd devs
 sudo groupadd admins
 ```
 
+![kjk](https://github.com/samalluis/Projecte4-EverPia-III/blob/main/T09/img/Captura%20de%20pantalla%202025-12-02%20163059.png?raw=true)
+
 ### 2.2 Creació d’usuaris
 
 ```bash
@@ -69,12 +83,23 @@ sudo useradd -m -g admins admin01
 sudo passwd admin01
 ```
 
+![eee](https://github.com/samalluis/Projecte4-EverPia-III/blob/main/T09/img/Captura%20de%20pantalla%202025-12-02%20163432.png?raw=true)
+
+![eee](https://github.com/samalluis/Projecte4-EverPia-III/blob/main/T09/img/Captura%20de%20pantalla%202025-12-02%20163531.png?raw=true)
+
+![dsdsd](https://github.com/samalluis/Projecte4-EverPia-III/blob/main/T09/img/Captura%20de%20pantalla%202025-12-16%20155039.png?raw=true)
+
+![asdadasd](https://github.com/samalluis/Projecte4-EverPia-III/blob/main/T09/img/Captura%20de%20pantalla%202025-12-09%20152257.png?raw=true)
+
 ### 2.3 Creació dels directoris NFS
 
 ```bash
-sudo mkdir -p /srv/nfs/dev_projects
-sudo mkdir -p /srv/nfs/admin_tools
+sudo mkdir /srv/nfs
+sudo mkdir /srv/nfs/dev_projects
+sudo mkdir /srv/nfs/admin_tools
 ```
+
+![qwer](https://github.com/samalluis/Projecte4-EverPia-III/blob/main/T09/img/Captura%20de%20pantalla%202025-12-02%20163805.png?raw=true)
 
 ### 2.4 Assignació de permisos (punt clau)
 
@@ -82,19 +107,31 @@ Els directoris tindran **root com a propietari**, però el control real es deleg
 
 ```bash
 sudo chown root:devs /srv/nfs/dev_projects
-sudo chmod 2770 /srv/nfs/dev_projects
+sudo chmod 770 /srv/nfs/dev_projects
 
 sudo chown root:admins /srv/nfs/admin_tools
-sudo chmod 2770 /srv/nfs/admin_tools
+sudo chmod 770 /srv/nfs/admin_tools
 ```
 
-> El bit **setgid (2)** assegura que els fitxers creats heretin el grup correcte.
+![qwert](https://github.com/samalluis/Projecte4-EverPia-III/blob/main/T09/img/Captura%20de%20pantalla%202025-12-02%20164248.png?raw=true)
+
+![rrtyu](https://github.com/samalluis/Projecte4-EverPia-III/blob/main/T09/img/Captura%20de%20pantalla%202025-12-02%20164335.png?raw=true)
+
+Fem una comprovacio amb la comanda:
+
+````
+ls -la /srv/nfs/
+````
+
+![asdad](https://github.com/samalluis/Projecte4-EverPia-III/blob/main/T09/img/Captura%20de%20pantalla%202025-12-09%20152338.png?raw=true)
 
 ### 2.5 Instal·lació del servidor NFS
 
 ```bash
 sudo apt install nfs-kernel-server -y
 ```
+
+![adfgh](https://github.com/samalluis/Projecte4-EverPia-III/blob/main/T09/img/Captura%20de%20pantalla%202025-12-02%20160326.png?raw=true)
 
 ---
 

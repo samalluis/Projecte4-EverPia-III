@@ -107,15 +107,15 @@ Els directoris tindran **root com a propietari**, però el control real es deleg
 
 ```bash
 sudo chown root:devs /srv/nfs/dev_projects
-sudo chmod 770 /srv/nfs/dev_projects
+sudo chmod 2770 /srv/nfs/dev_projects
 
 sudo chown root:admins /srv/nfs/admin_tools
-sudo chmod 770 /srv/nfs/admin_tools
+sudo chmod 2770 /srv/nfs/admin_tools
 ```
 
-![qwert](https://github.com/samalluis/Projecte4-EverPia-III/blob/main/T09/img/Captura%20de%20pantalla%202025-12-02%20164248.png?raw=true)
+![qwert](https://github.com/samalluis/Projecte4-EverPia-III/blob/main/T09/img/Captura%20de%20pantalla%202025-12-16%20170032.png?raw=true)
 
-![rrtyu](https://github.com/samalluis/Projecte4-EverPia-III/blob/main/T09/img/Captura%20de%20pantalla%202025-12-02%20164335.png?raw=true)
+![rrtyu](https://github.com/samalluis/Projecte4-EverPia-III/blob/main/T09/img/Captura%20de%20pantalla%202025-12-16%20165940.png?raw=true)
 
 Fem una comprovacio amb la comanda:
 
@@ -151,10 +151,10 @@ Afegir:
 /srv/nfs/admin_tools *(rw,sync)
 ```
 
-Aplicar els canvis:
+Aplicar els canvis i comprovem que estigui compartint via nfs:
 
 ```bash
-sudo exportfs -ra
+sudo exportfs -u
 ```
 
 #### Al client
@@ -179,7 +179,7 @@ touch /mnt/admin_tools/prova_root.txt
 ls -l /mnt/admin_tools
 ```
 
-**Resultat**: el fitxer apareix com a propietari `nobody:nogroup`.
+**Resultat**: el fitxer apareix com a propietari `Permiso denegado`.
 
 #### Explicació tècnica
 
@@ -195,6 +195,12 @@ Modificar `/etc/exports`:
 /srv/nfs/admin_tools *(rw,sync,no_root_squash)
 ```
 
+Reiniciem el server:
+
+````
+sudo systemctl restart nfs-kernel-sever
+````
+
 ```bash
 sudo exportfs -ra
 ```
@@ -202,7 +208,7 @@ sudo exportfs -ra
 Al client:
 
 ```bash
-sudo umount /mnt/admin_tools
+sudo umount -f /mnt/admin_tools
 sudo mount <IP_SERVIDOR>:/srv/nfs/admin_tools /mnt/admin_tools
 ```
 
@@ -229,6 +235,12 @@ Editar `/etc/exports`:
 /srv/nfs/dev_projects 192.168.56.0/24(rw,sync)
 /srv/nfs/dev_projects 192.168.56.100(ro,sync)
 ```
+
+Reiniciem el server:
+
+````
+sudo systemctl restart nfs-kernel-sever
+````
 
 ```bash
 sudo exportfs -ra

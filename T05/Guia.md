@@ -198,3 +198,10 @@ ssh nom_usuari@192.168.1.XX
 Resultat: Hauries d'entrar directament al servidor sense que et demani la contrasenya.
 
 Evidència (Rúbrica): Captura mostrant el login automàtic sense prompt de password.
+
+
+---
+
+Click aqui per anar al [HOME](..)
+
+Click aqui per tornar al [README](README.md)

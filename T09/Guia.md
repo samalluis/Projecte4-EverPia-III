@@ -1,236 +1,247 @@
-# Guia pas a pas detallada: Projecte 04 – Servidor NFS  
-**Client: DevOptimize Solutions**  
-**Objectiu:** Implementar i demostrar un servidor NFSv3 amb control d’accés, mostrant tant els avantatges com les limitacions de seguretat.
+# Projecte04 – Servidor NFS
 
-### Fase 1: Preparació de l’entorn
+## Prova de concepte per a DevOptimize Solutions
 
-1. **Crear dues màquines virtuals a VirtualBox/VMware**  
-   - **Servidor:** Ubuntu Server 24.04 LTS  
-     - 2 GB RAM, 2 nuclis, 20 GB disc  
-     - Xarxa 1: NAT (per Internet)  
-     - Xarxa 2: Només amfitrió (Host-Only) → IP estàtica 192.168.56.10/24  
-   - **Client:** Zorin OS 18 (basat en Ubuntu 24.04)  
-     - 2 GB RAM, 2 nuclis, 20 GB disc  
-     - Xarxa 1: NAT  
-     - Xarxa 2: Només amfitrió → IP estàtica 192.168.56.20/24 (per ara)  
+---
 
-2. **Instal·lació i configuració bàsica**  
-   - Idioma: Espanyol (Espanya)  
-   - Al servidor Ubuntu: marcar “OpenSSH server” durant la instal·lació.  
-   - Actualitzar ambdues màquines:
+## Introducció
+
+DevOptimize Solutions és una startup de desenvolupament de programari que treballa exclusivament amb sistemes Linux. Actualment, cada desenvolupador treballa amb còpies locals del codi font i dels documents del projecte, fet que provoca problemes constants de versions, errors humans i una pèrdua important d’eficiència.
+
+L’objectiu d’aquesta prova de concepte és implementar un **servidor de fitxers centralitzat mitjançant NFS (Network File System v3)**, mostrant tant el seu funcionament com les seves limitacions, ja que el client **no disposa d’autenticació centralitzada**.
+
+Aquesta guia documenta pas a pas tot el procés d’instal·lació, configuració, proves i conclusions.
+
+---
+
+## Fase 1: Preparació de l’entorn
+
+### 1.1 Infraestructura
+
+S’han creat dues màquines virtuals:
+
+* **Servidor NFS**: Ubuntu Server 24.04 LTS
+* **Client NFS**: Zorin OS 18
+
+Ambdues màquines disposen de:
+
+* Una interfície **NAT** (accés a Internet)
+* Una interfície **Només-amb-amfitrió** (comunicació entre servidor i client)
+
+Durant la instal·lació d’Ubuntu Server s’ha activat el **servei SSH** per facilitar la gestió remota.
+
+### 1.2 Actualització del sistema
+
+A ambdues màquines:
 
 ```bash
 sudo apt update && sudo apt upgrade -y
 ```
 
-3. **Comprovar connectivitat**  
-   Des del client:
+### 1.3 Verificació de connectivitat
+
+Des del client:
 
 ```bash
-ping 192.168.56.10
+ping <IP_SERVIDOR_NFS>
 ```
 
-Des del servidor:
+La resposta correcta confirma la comunicació entre ambdues màquines.
+
+---
+
+## Fase 2: Preparació del servidor NFS
+
+### 2.1 Creació de grups
 
 ```bash
-ping 192.168.56.20
+sudo groupadd devs
+sudo groupadd admins
 ```
 
-### Fase 2: Preparació del servidor (Ubuntu 24.04)
-
-1. **Creació de grups i usuaris**  
-   (És important que els UID/GID coincideixin exactament amb els del client perquè els permisos funcionin correctament)
+### 2.2 Creació d’usuaris
 
 ```bash
-sudo groupadd -g 1001 devs
-sudo groupadd -g 1002 admins
-
-sudo useradd -u 1001 -g devs -m -s /bin/bash dev01
+sudo useradd -m -g devs dev01
 sudo passwd dev01
 
-sudo useradd -u 1002 -g admins -m -s /bin/bash admin01
+sudo useradd -m -g admins admin01
 sudo passwd admin01
 ```
 
-2. **Creació de directoris i permisos**  
+### 2.3 Creació dels directoris NFS
 
 ```bash
 sudo mkdir -p /srv/nfs/dev_projects
 sudo mkdir -p /srv/nfs/admin_tools
+```
 
-# Propietari root, però grup corresponent i permisos adequats
+### 2.4 Assignació de permisos (punt clau)
+
+Els directoris tindran **root com a propietari**, però el control real es delega mitjançant grups:
+
+```bash
 sudo chown root:devs /srv/nfs/dev_projects
-sudo chmod 2770 /srv/nfs/dev_projects   # SGID perquè els nous fitxers heretin el grup devs
+sudo chmod 2770 /srv/nfs/dev_projects
 
 sudo chown root:admins /srv/nfs/admin_tools
 sudo chmod 2770 /srv/nfs/admin_tools
 ```
 
-3. **Instal·lar paquets NFS**  
+> El bit **setgid (2)** assegura que els fitxers creats heretin el grup correcte.
+
+### 2.5 Instal·lació del servidor NFS
 
 ```bash
 sudo apt install nfs-kernel-server -y
 ```
 
-4. **Configurar /etc/exports (exportació inicial)**  
-   Edita el fitxer:
+---
+
+## Fase 3: Exportació d’Administració – root_squash
+
+### 3.1 Prova 1: Error comú (root_squash per defecte)
+
+Editar `/etc/exports`:
 
 ```bash
 sudo nano /etc/exports
 ```
 
-Afegeix:
+Afegir:
 
-```text
-/srv/nfs/dev_projects   192.168.56.0/24(rw,sync,no_subtree_check)
-/srv/nfs/admin_tools    192.168.56.0/24(rw,sync,no_subtree_check)
+```
+/srv/nfs/admin_tools *(rw,sync)
 ```
 
-5. **Aplicar canvis i iniciar servei**  
+Aplicar els canvis:
 
 ```bash
 sudo exportfs -ra
-sudo systemctl restart nfs-kernel-server
 ```
 
-### Fase 3: El dilema del root_squash
+#### Al client
 
-1. **Prova 1 – Comportament per defecte (root_squash actiu)**  
-
-   Al client (Zorin OS) instal·lar client NFS:
+Instal·lar NFS client:
 
 ```bash
 sudo apt install nfs-common -y
 ```
 
-   Crear punt de muntatge i muntar:
+Muntar el recurs:
 
 ```bash
 sudo mkdir -p /mnt/admin_tools
-sudo mount -t nfs 192.168.56.10:/srv/nfs/admin_tools /mnt/admin_tools
+sudo mount <IP_SERVIDOR>:/srv/nfs/admin_tools /mnt/admin_tools
 ```
 
-   Com a root al client, crear un fitxer:
+Com a root, crear un fitxer:
 
 ```bash
-sudo touch /mnt/admin_tools/prueba_root.txt
-ls -l /mnt/admin_tools/prueba_root.txt
+touch /mnt/admin_tools/prova_root.txt
+ls -l /mnt/admin_tools
 ```
 
-   **Resultat esperat:**  
-   El fitxer apareix com a propietari **nobody:nogroup** (o 65534:65534).  
-   **Explicació:** NFSv3 per defecte activa **root_squash**. L’usuari root del client es mapeja a l’usuari nobody del servidor, impedint que root pugui escriure com a root real.
+**Resultat**: el fitxer apareix com a propietari `nobody:nogroup`.
 
-2. **Prova 2 – Desactivar root_squash**  
+#### Explicació tècnica
 
-   Al servidor, editar /etc/exports:
+Per seguretat, NFS aplica **root_squash** per defecte, que transforma l’usuari root del client en un usuari sense privilegis al servidor.
 
-```text
-/srv/nfs/admin_tools    192.168.56.0/24(rw,sync,no_subtree_check,no_root_squash)
+---
+
+### 3.2 Prova 2: Solució amb no_root_squash
+
+Modificar `/etc/exports`:
+
 ```
-
-   Aplicar:
+/srv/nfs/admin_tools *(rw,sync,no_root_squash)
+```
 
 ```bash
 sudo exportfs -ra
 ```
 
-   Al client, desmuntar i tornar a muntar:
+Al client:
 
 ```bash
 sudo umount /mnt/admin_tools
-sudo mount -t nfs 192.168.56.10:/srv/nfs/admin_tools /mnt/admin_tools
+sudo mount <IP_SERVIDOR>:/srv/nfs/admin_tools /mnt/admin_tools
 ```
 
-   Crear de nou el fitxer:
+Crear un nou fitxer:
 
 ```bash
-sudo touch /mnt/admin_tools/prueba_root_nosquash.txt
-ls -l /mnt/admin_tools/prueba_root_nosquash.txt
+touch /mnt/admin_tools/prova_root2.txt
+ls -l /mnt/admin_tools
 ```
 
-   **Resultat:** El fitxer és propietari **root:root**.  
-   **Explicació:** Amb **no_root_squash**, l’usuari root del client es respecta com a root al servidor.
+**Resultat**: el fitxer és propietat de `root:admins`.
 
-### Fase 4: Exportació amb permisos rw vs ro segons IP
+#### Explicació
 
-1. **Modificar /etc/exports al servidor**  
+Amb **no_root_squash**, el servidor confia plenament en el root del client, eliminant la protecció de seguretat.
 
-```text
-# Per a la xarxa completa (admins i devs) -> lectura i escriptura
-/srv/nfs/dev_projects   192.168.56.0/24(rw,sync,no_subtree_check,no_root_squash)
+---
 
-/srv/nfs/dev_projects   192.168.56.100/32(ro,sync,no_subtree_check,no_root_squash)
-# La segona línia té precedència per a l'IP 192.168.56.100
+## Fase 4: Exportació de Desenvolupament (rw vs ro)
+
+Editar `/etc/exports`:
+
 ```
-
-   Actualitzar:
+/srv/nfs/dev_projects 192.168.56.0/24(rw,sync)
+/srv/nfs/dev_projects 192.168.56.100(ro,sync)
+```
 
 ```bash
 sudo exportfs -ra
 ```
 
-2. **Proves al client (IP 192.168.56.20)**  
+### 4.1 Prova com a dev01 (IP amb rw)
 
 ```bash
 sudo mkdir -p /mnt/dev_projects
-sudo mount -t nfs 192.168.56.10:/srv/nfs/dev_projects /mnt/dev_projects
+sudo mount <IP_SERVIDOR>:/srv/nfs/dev_projects /mnt/dev_projects
+su - dev01
+touch /mnt/dev_projects/codi.c
 ```
 
-   Com a dev01:
+**Resultat**: es pot escriure correctament.
+
+### 4.2 Prova amb IP ro
+
+Canviar IP del client a `192.168.56.100`.
 
 ```bash
-sudo su - dev01
-echo "Prova des de dev01" > /mnt/dev_projects/mi_proyecto.txt
-ls -l /mnt/dev_projects/mi_proyecto.txt
-# Ha de funcionar i ser propietari dev01:devs
+touch /mnt/dev_projects/error.txt
 ```
 
-   Com a admin01:
+**Resultat**: error de permís (només lectura).
+
+### 4.3 Prova com a admin01
 
 ```bash
-sudo su - admin01
-echo "Prova des d'admin01" > /mnt/dev_projects/fallara.txt
-# Ha de donar error: Permission denied
+su - admin01
+touch /mnt/dev_projects/admin.txt
 ```
 
-3. **Simular IP de consultor extern (192.168.56.100)**  
-   Al client, canviar temporalment la IP de la interfície Host-Only:
+**Resultat**: error, ja que admin01 no pertany al grup `devs`.
 
-```bash
-sudo ip addr del 192.168.56.20/24 dev enp0s8
-sudo ip addr add 192.168.56.100/24 dev enp0s8
-```
+---
 
-   Tornar a muntar:
+## Fase 5: Muntatge automàtic amb /etc/fstab
 
-```bash
-sudo umount /mnt/dev_projects
-sudo mount -t nfs 192.168.56.10:/srv/nfs/dev_projects /mnt/dev_projects
-```
-
-   Com a dev01 intentar escriure → només lectura (ro).
-
-   Restaurar IP original:
-
-```bash
-sudo ip addr del 192.168.56.100/24 dev enp0s8
-sudo ip addr add 192.168.56.20/24 dev enp0s8
-```
-
-### Fase 5: Muntatge automàtic amb /etc/fstab
-
-Al client (Zorin OS) editar /etc/fstab:
+Editar `/etc/fstab` al client:
 
 ```bash
 sudo nano /etc/fstab
 ```
 
-Afegir al final:
+Afegir:
 
-```text
-192.168.56.10:/srv/nfs/dev_projects   /mnt/dev_projects   nfs   rw,soft,intr,rsize=8192,wsize=8192,timeo=14,retrans=3   0 0
-192.168.56.10:/srv/nfs/admin_tools    /mnt/admin_tools    nfs   rw,soft,intr,rsize=8192,wsize=8192,timeo=14,retrans=3   0 0
+```
+<IP_SERVIDOR>:/srv/nfs/admin_tools /mnt/admin_tools nfs defaults 0 0
+<IP_SERVIDOR>:/srv/nfs/dev_projects /mnt/dev_projects nfs defaults 0 0
 ```
 
 Provar sense reiniciar:
@@ -239,35 +250,27 @@ Provar sense reiniciar:
 sudo mount -a
 ```
 
-Reiniciar el client i comprovar:
+Reiniciar el sistema i verificar:
 
 ```bash
-df -h | grep nfs
+mount | grep nfs
 ```
 
-### Conclusió i recomanacions per a DevOptimize Solutions
+---
 
-Aquesta prova de concepte ha demostrat que NFS és una solució ràpida, nativa i eficient per compartir fitxers en entorns Linux purs. Hem aconseguit:
+## Conclusions i recomanacions
 
-- Control d’accés basat en grups i permisos del sistema de fitxers.
-- Exportacions diferenciades per IP (rw vs ro).
-- Gestió del comportament del root amb root_squash/no_root_squash.
+Aquesta prova de concepte demostra que NFS és una solució ràpida i eficient per centralitzar fitxers en entorns Linux. No obstant això, també presenta limitacions importants:
 
-No obstant això, la solució actual presenta **limitacions i riscos de seguretat importants**:
+* NFS **no autentica usuaris**, només confia en UID i GID
+* L’opció `no_root_squash` és un **risc de seguretat greu**
+* La gestió manual d’usuaris no escala
 
-1. **Manca d’autenticació real** → Qualsevol màquina de la xarxa 192.168.56.0/24 pot accedir als recursos si coneix la IP del servidor.
-2. **root_squash/no_root_squash** → Desactivar-lo és perillós en entorns productius perquè permet que un administrador maliciós d’una màquina client pugui escriure com a root al servidor.
-3. **Coincidència manual d’UID/GID** → Si un nou usuari es crea en una màquina i no coincideix l’ID, els permisos fallen.
-4. **Sense xifratge** → NFSv3 envia dades en clar; qualsevol pot interceptar el tràfic.
+### Recomanacions futures
 
-**Recomanacions per a una solució més segura i escalable:**
+* Implementar **LDAP o FreeIPA** per a autenticació centralitzada
+* Migrar a **NFSv4** amb control d’identitat i ACLs
+* Valorar alternatives com **Samba amb AD** o **sistemes de control de versions (Git)** per al codi font
+* Separar xarxes i aplicar firewall
 
-- Implementar **NFSv4** amb **Kerberos** per a autenticació real i xifratge.
-- Utilitzar **LDAP o FreeIPA** com a servidor d’autenticació centralitzada perquè tots els usuaris i grups tinguin el mateix UID/GID a totes les màquines.
-- Si no es vol Kerberos, almenys activar **NFSv4.2** amb **sec=sys** i **root_squash** activat, i restringir l’accés només a IPs concretes amb firewall (ufw o firewalld).
-- Considerar alternatives més modernes com **CephFS**, **GlusterFS** o **Nextcloud** (amb autenticació) si el volum de dades o els requisits de seguretat creixen.
-- Per a entorns professionals, migrar a **Git** (GitLab, GitHub Enterprise) per al codi font i **Nextcloud/ownCloud** per als documents, combinat amb backups automàtics.
-
-Amb aquestes millores, DevOptimize Solutions podria passar d’una solució de prova de concepte a una infraestructura robusta, segura i fàcil de gestionar a llarg termini.
-
-Aquesta guia inclou tots els passos, comandes i explicacions tècniques necessàries perquè qualsevol persona pugui reproduir el projecte exactament. Pots afegir les captures de pantalla corresponents als punts clau (ls -l, df -h, resultats de les proves de root_squash, etc.) per completar la documentació.
+En conclusió, la solució compleix els requisits actuals del client, però no és adequada per a un entorn de producció a mitjà o llarg termini sense millores de seguretat i gestió.
